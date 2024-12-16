@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Journal</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Protest+Guerrilla&family=Sofadi+One&display=swap');
+
+        /* Body Styling */
+        body {
+            font-family: "Almendra", serif;
+            font-weight: 800;
+            font-style: italic, bold;
+            background: url("https://wallpapercave.com/wp/wp3269205.jpg") no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 30px;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px); /* Blurred background */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+        }
+
+        .navbar h1 {
+            font-family: 'Almendra', serif;
+            font-size: 36px;
+            color: #4a2c2a;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* Form Container */
+        .container {
+            
+            backdrop-filter: blur(20px);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px 30px;
+            width: 100%;
+            max-width: 500px;
+            margin-top: 230px; /* Adjust to avoid navbar overlap */
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #202020;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        input, textarea, button {
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        button {
+            background-color: #353535;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #000000;
+        }
+
+        a {
+            text-decoration: none;
+            color: #2c2c2c;
+            font-weight: bold;
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #000000;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Travel Journal</h1>
+    </div>
+
+    <!-- Form Container -->
+    <div class="container">
+        <h1>Add Journal</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Submit</button>
+        </form>
+        <a href="{% url 'view_journals' %}">View Journals</a>
+    </div>
+    
+    <footer>
+        <br><br>
+        &copy; {{ current_year }} Travel Journal
+    </footer>
+
+</body>
+</html>

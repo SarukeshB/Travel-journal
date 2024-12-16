@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Journals</title>
+    <styLe>
+        @import url('https://fonts.googleapis.com/css2?family=Almendra:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+        /* Body Styling */
+        body {
+            font-family: "Almendra", serif;
+            background: url('https://wallpapercave.com/wp/wp3269205.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            flex-direction: column;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* Page Header */
+        h1 {
+            font-family: 'Almendra', serif;
+            font-size: 3rem;
+            color: #4a2c2a;
+            margin: 30px 0;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        /* Add New Journal Link */
+        a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 12px 25px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            display: block;
+            width: max-content;
+            text-align: center;
+            transition: background-color 0.3s ease;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        a:hover {
+            background-color: #5a3d23;
+        }
+
+        /* Journal List Styling */
+        ul {
+            list-style: none;
+            padding: 0;
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Journal Entry Card Styling */
+        li {
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        li:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.6rem;
+            color: #4a2c2a;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1rem;
+            color: #333;
+            margin: 5px 0;
+        }
+
+        .journal-date {
+            font-weight: bold;
+            color: #5a3d23;
+        }
+
+        /* Image Styling */
+        img {
+            display: block;
+            margin-top: 10px;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            font-size: 1rem;
+            color: #fff;
+            margin-top: 50px;
+            padding: 20px;
+            width: 100%;
+            
+        }
+
+        .delete-button {
+    background-color: #ff4d4d;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #d13232;
+}
+
+
+    </style>
+</head>
+<body>
+
+   
+    <a href="{% url 'add_journal' %}">Add New Journal</a>
+
+    <ul>
+        {% for journal in journals %}
+            <li>
+                <h2>{{ journal.title }}</h2>
+                <p class="journal-date"><strong>Date:</strong> {{ journal.date }}</p>
+                <p>{{ journal.description }}</p>
+                {% if journal.image %}
+                    <img src="{{ journal.image.url }}" alt="{{ journal.title }}">
+                {% endif %}
+                
+                <!-- Delete Button Form -->
+                <form method="POST" action="{% url 'delete_journal' journal.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <footer>
+        &copy; {{ current_year }} Travel Journal
+    </footer>
+
+</body>
+</html>
